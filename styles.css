@@ -5,8 +5,8 @@
 }
 
 body {
-    background-color: bisque;
-    color: cornflowerblue;
+    background-color: beige;
+    color: cadetblue;
     font-family: Roboto, sans-serif;
     height: 100vh;
     display: flex;
@@ -21,7 +21,7 @@ h1 {
 }
 
 .display {
-    background-color: beige; 
+    background-color: linen; 
     height: 125px;
     width: 500px;
     border-radius: 25px;
@@ -41,8 +41,8 @@ h1 {
 }
 
 .buttons button {
-    background-color: cornflowerblue;
-    color: bisque;
+    background-color: cadetblue;
+    color: beige;
     height: 25%;
     width: 25%;
     font-size: 48px;
