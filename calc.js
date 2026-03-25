@@ -41,11 +41,38 @@ function handleButtonPressed(button) {
         case "9":
             handleNumberPressed(button);
             break;
+        case "+":
+        case "-":
+        case "*":
+        case "/":
+            handleOperatorPressed(button);
     }
 }
 
 function handleNumberPressed(number) {
-    display.textContent += number;
+    if (operatorJustPressed) {
+        operatorJustPressed = false;
+        display.textContent = "";
+        display.textContent += number;
+    } else {
+        display.textContent += number;
+    }
+}
+
+function handleOperatorPressed(operator) {
+    if (display.textContent && !operand1 && !operatorJustPressed && !currentOperator) {
+        operand1 = display.textContent;
+        currentOperator = operator;
+        operatorJustPressed = true;
+    } else if (operatorJustPressed) {
+        currentOperator = operator;
+    } else if (display.textContent && operand1 && !operatorJustPressed) {
+        const result = operate(currentOperator, +operand1, +display.textContent);
+        display.textContent = parseFloat(result.toFixed(2));
+        operand1 = result;
+        currentOperator = operator;
+        operatorJustPressed = true;
+    }
 }
 
 function setupUI() {
@@ -60,6 +87,8 @@ function setupUI() {
 let operand1 = null;
 let operand2 = null;
 let currentOperator = null;
+
+let operatorJustPressed = false;
 
 const display = document.querySelector(".display");
 display.textContent = "";
