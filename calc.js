@@ -46,6 +46,10 @@ function handleButtonPressed(button) {
         case "*":
         case "/":
             handleOperatorPressed(button);
+            break;
+        case "C":
+            clear();
+            break;
     }
 }
 
@@ -73,6 +77,13 @@ function handleOperatorPressed(operator) {
         currentOperator = operator;
         operatorJustPressed = true;
     }
+}
+
+function clear() {
+    operand1 = null;
+    currentOperator = null;
+    operatorJustPressed = false;
+    display.textContent = "";
 }
 
 function setupUI() {
