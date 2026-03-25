@@ -50,12 +50,21 @@ function handleButtonPressed(button) {
         case "C":
             clear();
             break;
+        case "=":
+            handleEqualsPressed();
     }
 }
 
 function handleNumberPressed(number) {
     if (operatorJustPressed) {
         operatorJustPressed = false;
+        operand1 = display.textContent;
+        display.textContent = "";
+        display.textContent += number;
+    } else if (equalsJustPressed) {
+        currentOperator = null;
+        equalsJustPressed = false;
+        operand1 = null;
         display.textContent = "";
         display.textContent += number;
     } else {
@@ -64,18 +73,34 @@ function handleNumberPressed(number) {
 }
 
 function handleOperatorPressed(operator) {
-    if (display.textContent && !operand1 && !operatorJustPressed && !currentOperator) {
+    if (display.textContent && !operand1 && !operatorJustPressed && !currentOperator && !equalsJustPressed) {
         operand1 = display.textContent;
         currentOperator = operator;
         operatorJustPressed = true;
-    } else if (operatorJustPressed) {
+    } else if (operatorJustPressed && !equalsJustPressed) {
         currentOperator = operator;
-    } else if (display.textContent && operand1 && !operatorJustPressed) {
+    } else if (display.textContent && operand1 && !operatorJustPressed && !equalsJustPressed) {
         const result = operate(currentOperator, +operand1, +display.textContent);
         display.textContent = parseFloat(result.toFixed(2));
         operand1 = result;
         currentOperator = operator;
         operatorJustPressed = true;
+    } else if (equalsJustPressed && operand1) {
+        currentOperator = operator;
+        operatorJustPressed = true;
+        equalsJustPressed = false;
+    }
+}
+
+function handleEqualsPressed() {
+    if (operatorJustPressed || equalsJustPressed) {
+        console.log("Ignored equals press.")
+    } else if (operand1 && display.textContent && currentOperator) {
+        const result = operate(currentOperator, +operand1, +display.textContent);
+        display.textContent = parseFloat(result.toFixed(2));
+        operand1 = result;
+        equalsJustPressed = true;
+        currentOperator = null;
     }
 }
 
@@ -100,6 +125,7 @@ let operand2 = null;
 let currentOperator = null;
 
 let operatorJustPressed = false;
+let equalsJustPressed = false;
 
 const display = document.querySelector(".display");
 display.textContent = "";
