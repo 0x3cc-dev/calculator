@@ -6,4 +6,34 @@
 
 body {
     font-family: Roboto, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.display {
+    height: 100px;
+    width: 500px;
+    border: 1px solid black;
+    font-size: 64px;
+    padding: 16px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.buttons {
+    height: 500px;
+    width: 500px;
+    border: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.buttons button {
+    height: 25%;
+    width: 25%;
+    font-size: 48px;
 }
