@@ -14,6 +14,19 @@ function divide(a, b) {
     return a / b;
 }
 
+function operate(operator, a, b) {
+    switch (operator) {
+        case "+":
+            return add(a, b);
+        case "-":
+            return subtract(a, b);
+        case "*":
+            return multiply(a, b);
+        case "/":
+            return divide(a, b);
+    }
+}
+
 let operand1 = null;
 let operand2 = null;
 let currentOperator = null;
