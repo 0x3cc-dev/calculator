@@ -108,6 +108,7 @@ function clear() {
     operand1 = null;
     currentOperator = null;
     operatorJustPressed = false;
+    equalsJustPressed = false;
     display.textContent = "";
 }
 
@@ -121,7 +122,6 @@ function setupUI() {
 }
 
 let operand1 = null;
-let operand2 = null;
 let currentOperator = null;
 
 let operatorJustPressed = false;
