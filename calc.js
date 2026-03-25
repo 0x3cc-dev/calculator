@@ -11,11 +11,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    if (b === 0) {
-        return null;
-    } else {
-        return a / b;
-    }
+    return a / b;
 }
 
 function operate(operator, a, b) {
@@ -84,15 +80,15 @@ function handleOperatorPressed(operator) {
     } else if (operatorJustPressed && !equalsJustPressed) {
         currentOperator = operator;
     } else if (display.textContent && operand1 && !operatorJustPressed && !equalsJustPressed) {
-        const result = operate(currentOperator, +operand1, +display.textContent);
-        if (result) {
+        if (currentOperator === "/" && +display.textContent === 0) {
+            alert("Division by zero is not allowed in this calculator.");
+            clear();
+        } else {
+            const result = operate(currentOperator, +operand1, +display.textContent);
             display.textContent = parseFloat(result.toFixed(2));
             operand1 = result;
             currentOperator = operator;
             operatorJustPressed = true;
-        } else {
-            alert("Division by zero is not allowed in this calculator.");
-            clear();
         }
     } else if (equalsJustPressed && operand1) {
         currentOperator = operator;
@@ -105,15 +101,15 @@ function handleEqualsPressed() {
     if (operatorJustPressed || equalsJustPressed) {
         console.log("Ignored equals press.")
     } else if (operand1 && display.textContent && currentOperator) {
-        const result = operate(currentOperator, +operand1, +display.textContent);
-        if (result) {
+        if (currentOperator === "/" && +display.textContent === 0) {
+            alert("Division by zero is not allowed in this calculator.");
+            clear();
+        } else {
+            const result = operate(currentOperator, +operand1, +display.textContent);
             display.textContent = parseFloat(result.toFixed(2));
             operand1 = result;
             equalsJustPressed = true;
             currentOperator = null;
-        } else {
-            alert("Division by zero is not allowed in this calculator.");
-            clear();
         }
     }
 }
