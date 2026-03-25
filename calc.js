@@ -11,7 +11,11 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return a / b;
+    if (b === 0) {
+        return null;
+    } else {
+        return a / b;
+    }
 }
 
 function operate(operator, a, b) {
@@ -81,10 +85,15 @@ function handleOperatorPressed(operator) {
         currentOperator = operator;
     } else if (display.textContent && operand1 && !operatorJustPressed && !equalsJustPressed) {
         const result = operate(currentOperator, +operand1, +display.textContent);
-        display.textContent = parseFloat(result.toFixed(2));
-        operand1 = result;
-        currentOperator = operator;
-        operatorJustPressed = true;
+        if (result) {
+            display.textContent = parseFloat(result.toFixed(2));
+            operand1 = result;
+            currentOperator = operator;
+            operatorJustPressed = true;
+        } else {
+            alert("Division by zero is not allowed in this calculator.");
+            clear();
+        }
     } else if (equalsJustPressed && operand1) {
         currentOperator = operator;
         operatorJustPressed = true;
@@ -97,10 +106,15 @@ function handleEqualsPressed() {
         console.log("Ignored equals press.")
     } else if (operand1 && display.textContent && currentOperator) {
         const result = operate(currentOperator, +operand1, +display.textContent);
-        display.textContent = parseFloat(result.toFixed(2));
-        operand1 = result;
-        equalsJustPressed = true;
-        currentOperator = null;
+        if (result) {
+            display.textContent = parseFloat(result.toFixed(2));
+            operand1 = result;
+            equalsJustPressed = true;
+            currentOperator = null;
+        } else {
+            alert("Division by zero is not allowed in this calculator.");
+            clear();
+        }
     }
 }
 
